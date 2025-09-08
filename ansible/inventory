@@ -2,7 +2,7 @@
 192.187.56.30
 
 [web]
-54.163.57.224
+54.163.57.224 ansible_user=ec2-user ansible_password=admin
 
 [catalogue]
 192.187.56.5
