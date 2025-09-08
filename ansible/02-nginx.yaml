@@ -2,11 +2,24 @@
   hosts: web
   become: yes
   tasks:
-  - name: install nginx package
-    ansible.builtin.package:
-      name: nginx
-      state: present
-  - name: run nginx
-    ansible.builtin.service:
-      name: nginx
-      state: started
+    - name: collect package facts
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: stop nginx if already installed
+      ansible.builtin.service:
+        name: nginx
+        state: stopped
+      when: "'nginx' in ansible_facts.packages"
+
+    - name: install nginx if not installed
+      ansible.builtin.package:
+        name: nginx
+        state: present
+      when: "'nginx' not in ansible_facts.packages"
+
+    - name: start nginx if it was just installed
+      ansible.builtin.service:
+        name: nginx
+        state: started
+      when: "'nginx' not in ansible_facts.packages"
