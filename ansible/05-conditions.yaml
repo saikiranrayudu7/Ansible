@@ -1,0 +1,27 @@
+- name: install and run nginx playbook
+  hosts: localhost
+  become: yes
+  tasks:
+  - name: packages
+    ansible.builtin.package_facts:
+      manager:auto
+
+  - name: install nginx if not installed
+    ansible.builtin.package:
+      name: nginx
+      state: present
+    when: "'nginx' not in ansible_facts.packages"
+
+  - name: Print already installed message
+    ansible.builtin.debug:
+      msg:"nginx is installed"
+    when: "'nginx' in ansible_facts.packages"
+
+  - name: If installed, start service
+    ansible.builtin.package:
+      name: nginx
+      state: started
+      enabled: yes
+    when: "'nginx' in ansible_facts.packages"
+      
+  

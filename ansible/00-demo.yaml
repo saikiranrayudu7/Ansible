@@ -1,0 +1,26 @@
+#01 Basic
+- name: variables
+  hosts: localhost
+  vars:
+    name: "Sai Kiran R"
+    company: "CGI"
+  tasks:
+  - name: check variables
+    ansible.builtin.debug:
+      msg: "Hi, I am {{name}}. Im working at {{company}}."
+
+
+#02 Username and password
+- name: username and password
+  hosts: localhost
+  vars_prompt:
+  - name: USERNAME
+    prompt: Please enter your username
+    private: false
+  - name: PASSWORD
+    prompt: Please enter your uspasswordername
+    private: true
+  tasks:
+  - name: username and password
+    ansible.builtin.debug:
+      msg: "username is: {{USERNAME}}, and password is {{PASSWORD}}"
