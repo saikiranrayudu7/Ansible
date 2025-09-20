@@ -1,25 +1,14 @@
-- name: install and run nginx
+- name: Install and run nginx
   hosts: web
   become: yes
   tasks:
-    - name: collect package facts
-      ansible.builtin.package_facts:
-        manager: auto
-
-    - name: stop nginx if already installed
-      ansible.builtin.service:
-        name: nginx
-        state: stopped
-      when: "'nginx' in ansible_facts.packages"
-
-    - name: install nginx if not installed
+    - name: install NGINX
       ansible.builtin.package:
         name: nginx
         state: present
-      when: "'nginx' not in ansible_facts.packages"
 
-    - name: start nginx if it was just installed
+    - name: start and enable NGINX service
       ansible.builtin.service:
         name: nginx
         state: started
-      when: "'nginx' not in ansible_facts.packages"
+        enabled: true
