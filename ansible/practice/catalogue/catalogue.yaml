@@ -3,6 +3,9 @@
   become: yes
 
   tasks:
+  - name: Enable Node.js 18 repository
+    ansible.builtin.command: dnf install -y nodejs-18*
+  
   - name: Install nodejs
     ansible.builtin.dnf:
       name: nodejs18
