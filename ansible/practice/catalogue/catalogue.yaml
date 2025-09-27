@@ -3,19 +3,19 @@
   become: yes
 
   tasks:
-  - name: Enable Node.js 18 repository
-    ansible.builtin.command: dnf install -y nodejs-18*
-  
-  - name: Install nodejs
-    ansible.builtin.dnf:
-      name: nodejs18
-      state: present
+    - name: Enable Node.js 18 module
+      ansible.builtin.command: dnf module enable nodejs:18 -y
 
-  - name: create roboshop user
-    ansible.builtin.user:
-      name: roboshop
+    - name: Install Node.js
+      ansible.builtin.dnf:
+        name: nodejs
+        state: present
 
-  - name: create app directory
-    ansible.builtin.file:
-      path: /app
-      state: directory
+    - name: create roboshop user
+      ansible.builtin.user:
+        name: roboshop
+
+    - name: create app directory
+      ansible.builtin.file:
+        path: /app
+        state: directory
