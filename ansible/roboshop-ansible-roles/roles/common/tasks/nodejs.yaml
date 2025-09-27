@@ -1,0 +1,15 @@
+- name: Check if Node.js is installed
+  ansible.builtin.command: node -v
+  register: node_version
+  ignore_errors: true
+
+- name: Install Node.js 18 if missing
+  ansible.builtin.shell: |
+    curl -fsSL https://rpm.nodesource.com/setup_18.x | bash -
+    dnf install -y nodejs
+  when: node_version.rc != 0
+
+- name: Install the dependencies
+  ansible.builtin.command: npm install
+  args:
+    chdir: /app
