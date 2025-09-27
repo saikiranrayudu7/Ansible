@@ -1,5 +1,12 @@
-- name: Disable Old nodejs and enable nodejs
-  ansible.builtin.shell: dnf module disable nodejs -y ; dnf module enable nodejs:18 -y
+- name: Disable Old nodejs if exists
+  ansible.builtin.shell: |
+    dnf module disable nodejs -y
+    ignore_errors: yes
+
+- name: Enable nodejs:18 module if available
+  ansible.builtin.shell: |
+    dnf module enable nodejs:18 -y
+    ignore_errors: yes
 
 - name: Install Node.js 18 if missing
   ansible.builtin.dnf:
