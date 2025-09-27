@@ -1,13 +1,10 @@
-- name: Check if Node.js is installed
-  ansible.builtin.command: node -v
-  register: node_version
-  ignore_errors: true
+- name: Disable Old nodejs and enable nodejs
+  ansible.builtin.shell: dnf module disable nodejs -y ; dnf module enable nodejs:18 -y
 
 - name: Install Node.js 18 if missing
-  ansible.builtin.shell: |
-    curl -fsSL https://rpm.nodesource.com/setup_18.x | bash -
-    dnf install -y nodejs
-  when: node_version.rc != 0
+  ansible.builtin.dnf:
+    name: nodejs
+    state: present
 
 - name: Install the dependencies
   ansible.builtin.command: npm install
