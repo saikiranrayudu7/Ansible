@@ -1,0 +1,6 @@
+- name: Install {{ component }}
+  ansible.builtin.package:
+    name: "{{ component }}"
+    state: present
+  vars:
+    component: nginx

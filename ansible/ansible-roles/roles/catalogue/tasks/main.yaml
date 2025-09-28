@@ -1,0 +1,9 @@
+- name: nginx setup
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: nginx
+
+- name: nginx setup
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: systemd
