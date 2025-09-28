@@ -1,9 +1,0 @@
-- name: Application setup
-  ansible.builtin.import_role:
-    name: common
-    tasks_from: app-setup
-
-- name: Setup systemd service
-  ansible.builtin.import_role:
-    name: common
-    tasks_from: systemd
