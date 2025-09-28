@@ -1,0 +1,17 @@
+- name: Start and enable MongoDB service
+  ansible.builtin.service:
+    name: mongod
+    state: started
+    enabled: true
+
+- name: Update the mongodb listen address
+  ansible.builtin.replace:
+    path: /etc/mongod.conf
+    regexp: '127.0.0.1'
+    replace: '0.0.0.0'
+
+- name: Restart Mongodb
+  ansible.builtin.service:
+    name: mongod
+    state: restarted
+    enabled: true
