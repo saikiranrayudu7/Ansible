@@ -1,3 +1,4 @@
+---
 - name: Install Jenkins and Docker on Ubuntu server
   hosts: web
   become: true
@@ -54,14 +55,36 @@
         state: present
         update_cache: yes
 
-    - name: Enable and start Jenkins service
+    # ✅ Ensure Jenkins service is enabled and restarted
+    - name: Restart Jenkins service
       systemd:
         name: jenkins
         enabled: true
-        state: started
+        state: restarted
+        daemon_reload: yes
 
-    - name: Enable and start Docker service
+    # ✅ Ensure Docker service is enabled and restarted
+    - name: Restart Docker service
       systemd:
         name: docker
         enabled: true
-        state: started
+        state: restarted
+        daemon_reload: yes
+
+    # ✅ Verify Jenkins status
+    - name: Check Jenkins service status
+      command: systemctl status jenkins
+      register: jenkins_status
+      ignore_errors: true
+
+    - debug:
+        var: jenkins_status.stdout_lines
+
+    # ✅ Verify Docker status
+    - name: Check Docker service status
+      command: systemctl status docker
+      register: docker_status
+      ignore_errors: true
+
+    - debug:
+        var: docker_status.stdout_lines
