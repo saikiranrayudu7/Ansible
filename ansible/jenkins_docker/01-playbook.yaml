@@ -1,0 +1,67 @@
+- name: Install Jenkins and Docker on Ubuntu server
+  hosts: web
+  become: true
+
+  tasks:
+    - name: Update apt package index
+      apt:
+        update_cache: yes
+
+    - name: Install required dependencies
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+          - gnupg
+        state: present
+
+    - name: Add Jenkins repository key
+      apt_key:
+        url: https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+        state: present
+
+    - name: Add Jenkins repository
+      apt_repository:
+        repo: 'deb https://pkg.jenkins.io/debian-stable binary/'
+        state: present
+
+    - name: Install Java and Jenkins
+      apt:
+        name:
+          - openjdk-17-jdk
+          - jenkins
+        state: present
+        update_cache: yes
+
+    - name: Add Docker GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker repository
+      apt_repository:
+        repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+        state: present
+
+    - name: Install Docker Engine
+      apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+        state: present
+        update_cache: yes
+
+    - name: Enable and start Jenkins service
+      systemd:
+        name: jenkins
+        enabled: true
+        state: started
+
+    - name: Enable and start Docker service
+      systemd:
+        name: docker
+        enabled: true
+        state: started
