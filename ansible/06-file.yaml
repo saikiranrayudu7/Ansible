@@ -11,3 +11,4 @@
         group: ec2-user
         mode: '0644'
         force: yes
+        remote_src: no
