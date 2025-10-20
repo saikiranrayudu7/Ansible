@@ -1,0 +1,12 @@
+- name: copy file
+  hosts: web
+  become: true
+  
+  tasks:
+    - name: Copy file
+      ansible.builtin.copy:
+        src: /home/ec2-user/filename.txt   # Path in Ansible control node
+        dest: /home/ec2-user/filename.txt  # Destination on target machine
+        owner: ec2-user
+        group: ec2-user
+        mode: '0644'
