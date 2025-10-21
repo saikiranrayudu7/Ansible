@@ -1,0 +1,8 @@
+- name: Create file
+  hosts: web
+  become: true
+  tasks:
+    - name: Create file
+      ansible.builtin.file:
+        path: /home/ec2-user/info.txt
+        state: touch
