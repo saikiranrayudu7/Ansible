@@ -1,0 +1,10 @@
+- name: Overwrtie fiel
+  hosts: web
+  become: yes
+  tasks:
+    - name: Overwrite the file /etc/motd
+      ansible.builtin.copy:
+        dest: /tmp/demo.txt
+        content: |
+          Welcome to Ansible Automation
+          This file is managed by Ansible

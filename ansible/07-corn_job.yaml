@@ -1,9 +1,0 @@
-- name: Create corn job
-  hosts: web
-  become: yes
-  tasks:
-    - name: Scheduling cron job
-      ansible.builtin.cron:
-        name: "write_date"
-        minute: "*/2"
-        job: "/bin/date >> /tmp/date.txt"
