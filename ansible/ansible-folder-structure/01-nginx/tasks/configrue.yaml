@@ -1,0 +1,5 @@
+- name: Copy file to folder
+  ansible.builtin.copy:
+    src: index.html
+    dest: /usr/share/nginx/html/index.html
+  notify: nginx restart

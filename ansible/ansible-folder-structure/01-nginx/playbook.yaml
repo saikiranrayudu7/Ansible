@@ -1,0 +1,16 @@
+- name: nginx
+  hosts: web
+  become: true
+  tasks:
+    - name: Install nginx
+      import_tasks: tasks/install.yaml
+
+    - name: Copy file
+      import_tasks: tasks/configure.yaml
+
+    - name: start nginx service
+      import_tasks: tasks/start.yaml
+
+  handlers:
+    - name: nginx service handler
+      import_tasks: handlers/main.yaml
