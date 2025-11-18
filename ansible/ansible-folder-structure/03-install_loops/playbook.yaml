@@ -1,0 +1,5 @@
+- name: Install Packages
+  hosts: web
+  become: yes
+  tasks:
+    - import_tasks: tasks/create-users.yaml

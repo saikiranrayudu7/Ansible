@@ -1,0 +1,9 @@
+- name: create users
+  ansible.builtin.user:
+    name: "{{ item }}"
+    state: present
+    
+  loop:
+    - sai
+    - kiran
+    - devops

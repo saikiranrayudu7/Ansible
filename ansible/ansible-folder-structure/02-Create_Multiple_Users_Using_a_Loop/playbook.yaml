@@ -1,0 +1,5 @@
+- name: Create Users
+  hosts: web
+  become: yes
+  tasks:
+    - import_tasks: tasks/create-users.yaml
