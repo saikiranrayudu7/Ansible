@@ -3,4 +3,4 @@
   become: yes
   tasks:
     - name: install packages
-      import_tasks: tasks/create-users.yaml
+      import_tasks: tasks/install-packages.yaml
