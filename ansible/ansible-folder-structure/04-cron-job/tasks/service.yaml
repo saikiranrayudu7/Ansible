@@ -1,0 +1,5 @@
+- name: start service
+  ansible.builtin.service:
+    name: crond
+    state: started
+    enabled: yes

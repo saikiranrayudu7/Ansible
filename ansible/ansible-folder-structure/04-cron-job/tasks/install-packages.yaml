@@ -1,0 +1,7 @@
+- name: create users
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+    
+  loop:
+    - cronie

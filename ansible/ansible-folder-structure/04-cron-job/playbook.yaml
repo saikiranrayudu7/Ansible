@@ -1,0 +1,15 @@
+- name: Install Packages
+  hosts: web
+  become: yes
+  tasks:
+    - name: Import install packages task
+      import_tasks: tasks/install-packages.yaml
+    
+    - name: Import service task
+      import_tasks: tasks/service.yaml
+
+    - name: Scheduling cron job
+      ansible.builtin.cron:
+        name: "write_date"
+        minute: "*/2"
+        job: "/bin/date >> /tmp/date.txt"
